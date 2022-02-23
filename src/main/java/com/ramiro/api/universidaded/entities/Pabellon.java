@@ -39,8 +39,11 @@ public class Pabellon implements Serializable{
 		@AttributeOverride(name = "departamento", column = @Column(name="departamento"))
 	})
 	private Direccion direccion;
+	@Column(name = "usuario_creacion", nullable = false)
 	private String usuarioCreacion;
+	@Column(name = "fecha_creacion", nullable = false)
 	private Date fechaCreacion;
+	@Column(name = "fecha_modificacion")
 	private Date fechaModificacion;
 	@OneToMany(mappedBy = "pabellon", fetch = FetchType.LAZY)
 	private Set<Aula> aulas;
@@ -103,6 +106,14 @@ public class Pabellon implements Serializable{
 	}
 	public void setFechaModificacion(Date fechaModificacion) {
 		this.fechaModificacion = fechaModificacion;
+	}
+
+	public Set<Aula> getAulas() {
+		return aulas;
+	}
+
+	public void setAulas(Set<Aula> aulas) {
+		this.aulas = aulas;
 	}
 
 	@Override

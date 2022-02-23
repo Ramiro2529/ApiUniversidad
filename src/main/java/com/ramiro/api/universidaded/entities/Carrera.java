@@ -3,12 +3,16 @@ package com.ramiro.api.universidaded.entities;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -19,7 +23,7 @@ public class Carrera implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	@Column(name = "nombre_carrera", nullable = false, length = 40)
 	private String nombreCarrera;
 	@Column(name = "cantidad_materias")
@@ -34,11 +38,16 @@ public class Carrera implements Serializable{
 	private Date fechaModificacion;
 	private static final long serialVersionUID = 1L;
 	
+	@OneToMany(mappedBy = "carrera", fetch = FetchType.LAZY)
+	private Set<Alumno> alumnos;
+	@ManyToMany(mappedBy = "carreras", fetch = FetchType.LAZY)
+	private Set<Profesor> profesores;
+	
 	
 	public Carrera() {
 		
 	}
-	public Carrera(Integer id, String nombreCarrera, Integer cantidadMaterias, Integer cantidadAnios,
+	public Carrera(Long id, String nombreCarrera, Integer cantidadMaterias, Integer cantidadAnios,
 			String usuarioCreacion) {
 		super();
 		this.id = id;
@@ -47,10 +56,10 @@ public class Carrera implements Serializable{
 		this.cantidadAnios = cantidadAnios;
 		this.usuarioCreacion = usuarioCreacion;
 	}
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getNombreCarrera() {
