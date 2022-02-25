@@ -12,34 +12,33 @@ import com.ramiro.api.universidaded.entities.Carrera;
 import com.ramiro.api.universidaded.repositorios.CarreraRepositorio;
 
 @Service
-public class CarreraDAOImpl implements CarreraDAO {
+public class CarreraDAOImpl extends GenericoDAOImpl<Carrera,CarreraRepositorio> implements CarreraDAO {
 
 	@Autowired
-	private CarreraRepositorio carreraRepositorio;
-	
-	@Override
-	@Transactional(readOnly = true)
-	public Optional<Carrera> buscarPorId(Long id) {
-		return carreraRepositorio.findById(id);
+	public CarreraDAOImpl(CarreraRepositorio repositorio) {
+		super(repositorio);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Iterable<Carrera> buscarTodos() {
-		return carreraRepositorio.findAll();
+	public Iterable<Carrera> findCarrerasByNombreContains(String nombre) {
+		
+		return repositorio.findCarrerasByNombreContains(nombre);
 	}
 
 	@Override
-	@Transactional
-	public Carrera guardarCarrera(Carrera carrera) {
-		return carreraRepositorio.save(carrera);
+	@Transactional(readOnly = true)
+	public Iterable<Carrera> findCarrerasByNombreContainsIgnoreCase(String nombre) {
+		
+		return repositorio.findCarrerasByNombreContainsIgnoreCase(nombre);
 	}
 
 	@Override
-	@Transactional
-	public void eliminarPorId(Long id) {
-		carreraRepositorio.deleteById(id);
+	@Transactional(readOnly = true)
+	public Iterable<Carrera> findCarrerasByCantidadAniosAfter(Integer cantidadAnios) {
+		return repositorio.findCarrerasByCantidadAniosAfter(cantidadAnios);
 	}
+
 
 	
 

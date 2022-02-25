@@ -4,11 +4,11 @@ import java.util.Optional;
 
 import com.ramiro.api.universidaded.entities.Carrera;
 
-public interface CarreraDAO {
+public interface CarreraDAO extends GenericoDAO<Carrera>{
 	
-	public Optional<Carrera> buscarPorId(Long id);
-	public Iterable<Carrera> buscarTodos();
-	public Carrera guardarCarrera(Carrera carrera);
-	public void eliminarPorId(Long id);
+	public Iterable<Carrera> findCarrerasByNombreContains(String nombre);
+	public Iterable<Carrera> findCarrerasByNombreContainsIgnoreCase(String nombre);
+	public Iterable<Carrera> findCarrerasByCantidadAniosAfter(Integer cantidadAnios);
+	
 
 }
